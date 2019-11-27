@@ -3,7 +3,6 @@
 # startup.sh
 #
 # extracts SQL and dashboards from one or more slab files and installs into s-Server
-# assumes that the file is $PROJECT_NAME.slab
 
 HERE=$(cd `dirname $0`; pwd -P)
 . $HERE/serviceFunctions.sh
@@ -32,16 +31,12 @@ echo ...  execute project specific startup
 $SQLSTREAM_HOME/demo/data/buses/start.sh
 
 echo ... point s-Dashboard to use the project dashboards directory
-cat /etc/default/s-dashboardd | sed -e "s:SDASHBOARD_DIR.*:SDASHBOARD_DIR=/home/sqlstream/$PROJECT_NAME/dashboards:" > /tmp/s-dashboardd
+cat /etc/default/s-dashboardd | sed -e "s:SDASHBOARD_DIR.*:SDASHBOARD_DIR=$HERE/dashboards:" > /tmp/s-dashboardd
 mv /tmp/s-dashboardd /etc/default/s-dashboardd
 cat /tmp/s-dashboardd | grep SDASHBOARD_DIR
 # 
 
-
-#echo ...  For a single slab project you can just execute the start pumps script ${HERE}/${PROJECT_NAME}.start.sql
-#sqllineClient --run=${HERE}/${PROJECT_NAME}.start.sql
-
-echo ... for multiple projects, generate a start script
+echo ... in case of multiple projects, generate a start script
 generatePumpScripts
 
 echo ... and start pumps
