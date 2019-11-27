@@ -25,7 +25,7 @@ ls -l
 for slab in *.slab
 do
     echo ... ... unpacking $slab
-    PROJECT_NAME=$(basename $slab .slab) $HERE/setup.sh
+    $HERE/setup.sh $(basename $slab .slab)
 done
 
 echo ...  execute project specific startup
