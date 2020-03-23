@@ -4,7 +4,7 @@
 # expects BASE_IMAGE and CONTAINER_NAME to be supplied by caller 
 
 GIT_ACCOUNT=https://github.com/NigelThomas
-GIT_PROJECT_NAME=buses
+GIT_PROJECT_NAME=streamlab-buses
 
 
 # kill any edr test container running on this host (because ports will clash)
